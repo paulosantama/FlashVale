@@ -66,7 +66,7 @@
                             </li>
                             <li class="nav-item">
                                 @if (Route::has('register'))
-                                    <a class="nav-link" href="{{ route('register') }}" style="color: white;">{{ __('Register') }}</a>
+                                    <a class="nav-link" href="{{ route('register') }}" style="color: white;">{{ __('Registrar') }}</a>
                                 @endif
                             </li>
                         @else
