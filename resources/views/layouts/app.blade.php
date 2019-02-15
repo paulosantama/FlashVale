@@ -33,14 +33,20 @@
         <nav class="navbar navbar-expand-md navbar-dark navbar-laravel navVerde">
             <div class="container">
                 @if(!((Request::is('*login'))||(Request::is('*register'))||(Request::is('*reset'))))
-                    @if((Auth::user()->empresa_id==null)&&(Auth::user()->funcionario_id!=null))
-                    <a class="navbar-brand" href="{{ url('/funcionario/home') }}">
-                    {{ config('app.name', 'Laravel') }}
-                    </a>
-                    @elseif((Auth::user()->empresa_id!=null)&&(Auth::user()->funcionario_id==null))
-                    <a class="navbar-brand" href="{{ url('/empresa/home') }}">
-                    {{ config('app.name', 'Laravel') }}
-                    </a>
+                    @if(Auth::user())
+                        @if((Auth::user()->empresa_id==null)&&(Auth::user()->funcionario_id!=null))
+                        <a class="navbar-brand" href="{{ url('/funcionario/home') }}">
+                        {{ config('app.name', 'Laravel') }}
+                        </a>
+                        @elseif((Auth::user()->empresa_id!=null)&&(Auth::user()->funcionario_id==null))
+                        <a class="navbar-brand" href="{{ url('/empresa/home') }}">
+                        {{ config('app.name', 'Laravel') }}
+                        </a>
+                        @endif
+                    @else
+                        <a class="navbar-brand" href="{{ url('/') }}">
+                            {{ config('app.name', 'Laravel') }}
+                        </a>
                     @endif
                 @else
                     <a class="navbar-brand" href="#">

@@ -17,7 +17,8 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+//Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@verificaTipo')->name('home');
 
 // Universal
 Route::get('/verifica/tipo', 'HomeController@verificaTipo');
@@ -54,3 +55,4 @@ Route::get('folha/{func}/cadastrar','FolhaSalarialController@cadastrar');
 Route::post('folha/salvar', 'FolhaSalarialController@salvar');
 Route::get('folha/{func}/editar', 'FolhaSalarialController@editar');
 Route::get('folha/{func}/visualizar', 'FolhaSalarialController@visualizar');
+Route::get('folha/renovar', 'FolhaSalarialController@renovarFolha');

@@ -9,6 +9,14 @@ use Illuminate\Http\Request;
 
 class FolhaSalarialController extends Controller
 {
+    public function renovarFolha(){
+        try{
+            \Session::flash('mensagemSucesso','Folha salarial cadastrada com sucesso.');
+        }catch (\Exception $error){
+            \Session::flash('mensagem','Erro na renovação da folha salarial.');
+//            echo $error->getMessage();
+        }
+    }
     public function listar(){
         if(!\Auth::check()){
             return \Redirect::to('login');

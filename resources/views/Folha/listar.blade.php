@@ -28,6 +28,14 @@
         {{--</div>--}}
         <br/>
         <div class="row">
+            <div class="col-md-12" style="text-align: right">
+                <a href="{{url('folha/renovar')}}" class="btn btn-primary" title="Reinicia folha para o mês vigente.">
+                    Renovar Folha
+                </a>
+            </div>
+        </div>
+        <br/>
+        <div class="row">
             <div class="col-md-12">
                 <table class="table table-striped table-responsive-md">
                     <thead class="navVerde">
