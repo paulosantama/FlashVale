@@ -2,6 +2,12 @@
 @section('content')
     <div class="container">
         <h3>Empresa</h3>
+        @if(Session::has('mensagem'))
+            <div class="alert alert-warning">{{Session::get('mensagem')}}</div>
+        @endif
+        @if(Session::has('mensagemSucesso'))
+            <div class="alert alert-success">{{Session::get('mensagemSucesso')}}</div>
+        @endif
         <h5>Dados Empresariais</h5>
         {!! Form::open(['url'=>'empresa/salvar']) !!}
         <div class="row">

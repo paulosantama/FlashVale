@@ -11,6 +11,8 @@ class FolhaSalarialController extends Controller
 {
     public function renovarFolha(){
         try{
+
+
             \Session::flash('mensagemSucesso','Folha salarial cadastrada com sucesso.');
         }catch (\Exception $error){
             \Session::flash('mensagem','Erro na renovação da folha salarial.');

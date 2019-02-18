@@ -69,9 +69,9 @@ class EmpresaController extends Controller
             \Session::flash('mensagem', 'Erro no Cadastro');
 
             if($request->editar){
-                return \Redirect::to(\url('/empresa/editar'));
+                return Redirect('/empresa/editar')->withInput();
             }else{
-                return \Redirect::to(\url('/empresa/cadastro'));
+                return Redirect('/empresa/cadastro')->withInput();
             }
         }
         \DB::commit();
