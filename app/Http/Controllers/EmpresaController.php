@@ -92,7 +92,7 @@ class EmpresaController extends Controller
         }
     }
     public function solicitacoesCadastro(){
-        if(!\Auth::check()){
+        if(!\Auth::check() || \Auth::user()->empresa_id == null){
             return \Redirect::to('login');
         }
 
