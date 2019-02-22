@@ -16,20 +16,18 @@
             <div class="col-md-12">
                 <table class="table table-responsive-md table-hover" id="tableFolhas">
                     <thead class="navVerde">
-                    <th>Funcionário</th>
-                    <th>Salário Original(R$)</th>
-                    <th>Salário Atual(R$)</th>
-                    <th>Referência</th>
-                    <th>Ações</th>
+                        <th>Funcionário</th>
+                        <th>Salário Original(R$)</th>
+                        <th>Salário Atual(R$)</th>
+                        <th>Referência</th>
+                        <th>Ações</th>
                     </thead>
                     <tbody>
-                    {{--@foreach($funcionarios as $func)--}}
+                    <?php
+                        $mesAtual = now()->startOfMonth();
+                    ?>
                     @foreach($folhas as $folha)
-                        <?php
-//                            $folha = $func->folhaSalarialFuncionario->first();
-                        ?>
                         <tr>
-                            {{--<td>{{ $func->nome }}</td>--}}
                             <td>{{ $folha->funcionario->nome }}</td>
                             @if($folha==null)
                                 <td>
@@ -47,12 +45,13 @@
                                 ?>
                                 <td>{{ $data->format('Y-m') }}</td>
                                 <td>
+                                    @if($folha->created_at->gt($mesAtual))
                                     <a href="{{ url('folha/'.$folha->funcionario->id.'/editar') }}" class="">
                                         <span class="btn btn-warning fa fa-pencil"></span>
                                     </a>
+                                    @endif
                                 </td>
                             @endif
-
                         </tr>
                     @endforeach
                     </tbody>
@@ -80,8 +79,9 @@
         $(document).ready( function () {
             $('#tableFolhas').DataTable({
                 "language": {
-                    "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Portuguese-Brasil.json"
-                }
+                    "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Portuguese-Brasil.json",
+                },
+                "order": [[ 3, "desc" ], [0, "asc"]]
             });
         } );
     </script>

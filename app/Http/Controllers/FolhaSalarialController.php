@@ -63,7 +63,6 @@ class FolhaSalarialController extends Controller
         }
 
         return view('Folha.listar',['folhas'=>$folhas]);
-//        return view('Folha.listar',['funcionarios'=>$funcionarios]);
     }
     public function cadastrar($func){
         if(!\Auth::check()){
@@ -104,11 +103,13 @@ class FolhaSalarialController extends Controller
         return view('Folha.editar',['funcionario'=>$funcionario]);
     }
     public function visualizar($func){
-        if(!\Auth::check()){
+        if(!\Auth::check() || \Auth::user()->funcionario_id != $func){
             return \Redirect::to('login');
         }
         $funcionario = Funcionario::findOrFail($func);
+        $folhas = $funcionario->folhaSalarialFuncionario;
 
-        return view('Folha.visualizar',['funcionario'=>$funcionario]);
+
+        return view('Folha.visualizar',['folhas'=>$folhas]);
     }
 }

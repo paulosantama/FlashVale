@@ -17,4 +17,8 @@ class SolicitacaoVale extends Model
     public function statusVale(){
         return $this->belongsTo('App\StatusVale');
     }
+    public function folhaSalarial(){
+        return $this->belongsTo('App\FolhaSalarial');
+//        return $this->hasOne('App\FolhaSalarial');
+    }
 }

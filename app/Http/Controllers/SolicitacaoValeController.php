@@ -31,41 +31,75 @@ class SolicitacaoValeController extends Controller
             $solVale->valor_solicitado = $request->valor;
             $solVale->status_vale_id = 1;
 
+            $func = Funcionario::findOrFail($request->funcionario_id);
+            $folha = $func->folhaSalarialFuncionario()->orderBy('created_at','DESC')->first();
+
+            $mesAtual = now()->startOfMonth();
+
+            if ($folha->created_at->lt($mesAtual)){
+                \Session::flash('mensagem','Folha Salarial desatualizada, entrar em contato com a empresa.');
+                return \Redirect::to("/vale/solicitar")->withInput();
+            }
+            if ($request->valor > $folha->salario_bruto_novo){
+                \Session::flash('mensagem','O valor solicitador excede o disponível em folha.');
+                return \Redirect::to("/vale/solicitar")->withInput();
+            }
+
+            $solVale->folha_id = $folha->id;
             $solVale->save();
+
+            \Session::flash('mensagemSucesso','Solicitação de vale efetuada, aguarde a aprovação.');
+            return \Redirect::to('vale/solicitacoes');
         }catch (\Exception $error){
             \Session::flash('mensagem','Erro na solicitação de vale.');
             return \Redirect::to('/vale/solicitar');
-            echo $error->getMessage();
         }
-        \Session::flash('mensagemSucesso','Solicitação de vale efetuada, aguarde a aprovação.');
-        return \Redirect::to('/funcionario/home');
     }
     public function telaSolicitar(){
-        $tipo = \Auth::user()->type;
-        return view('Vale.telaSolicitar');
+        if(!\Auth::check() || \Auth::user()->funcionario_id == null){
+            return \Redirect::to('login');
+        }
+//        $tipo = \Auth::user()->type;
+        $funcionario = \App\Funcionario::findOrFail(\Auth::user()->funcionario_id);
+        $folha = $funcionario->folhaSalarialFuncionario()->orderBy('created_at','DESC')->first();
+
+        return view('Vale.telaSolicitar',['folha'=>$folha, 'funcionario'=>$funcionario]);
     }
     public function aprovar($val){
         if (\Auth::user()->type==1){
             \DB::beginTransaction();
             try{
-                $solicitacao = SolicitacaoVale::findOrFail($val);
+                $solicitacao = \App\SolicitacaoVale::findOrFail($val);
+                $folha = FolhaSalarial::findOrFail($solicitacao->folha_id);
+
+                $mesAtual = now()->startOfMonth();
+
+                if ($folha->created_at->lt($mesAtual)){
+                    \Session::flash('mensagem','Somente é possível aprovar Vales de Folhas Atualizadas.');
+                    return \Redirect::to("vale/solicitacoes");
+                }
+                if ($solicitacao->valor_solicitado > $folha->salario_bruto_novo){
+                    \Session::flash('mensagem','O valor solicitador excede o disponível em folha.');
+                    return \Redirect::to("vale/solicitacoes");
+                }
+
                 $solicitacao->status_vale_id = 2;
                 $solicitacao->save();
 
-                $folha = FolhaSalarial::where('funcionario_id',$solicitacao->funcionario_id)->first();
                 $folha->salario_bruto_novo = ($folha->salario_bruto_novo - $solicitacao->valor_solicitado);
                 $folha->save();
+
+                \DB::commit();
+                \Session::flash('mensagemSucesso','Solicitação de vale aprovada.');
+                return \Redirect::to('vale/solicitacoes');
             }catch (\Exception $error){
                 \DB::rollBack();
                 \Session::flash('mensagem','Erro na execução da ação.');
-                echo $error->getMessage();
                 return \Redirect::to('vale/solicitacoes');
             }
-            \Session::flash('mensagemSucesso','Solicitação de vale aprovada.');
-            \DB::commit();
-            return \Redirect::to('vale/solicitacoes');
+        }else{
+            return \Redirect::to('login');
         }
-
     }
     public function reprovar($val){
         if (\Auth::user()->type==1){
@@ -79,6 +113,8 @@ class SolicitacaoValeController extends Controller
             }
             \Session::flash('mensageSucesso','Solicitação de vale reprovada.');
             return \Redirect::to('vale/solicitacoes');
+        }else{
+            return \Redirect::to('login');
         }
     }
 }

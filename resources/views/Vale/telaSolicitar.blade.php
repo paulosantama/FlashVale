@@ -1,8 +1,7 @@
 @extends('layouts.app')
 @section('content')
     <?php
-        $funcionario = \App\Funcionario::findOrFail(Auth::user()->funcionario_id);
-        $folha = $funcionario->folhaSalarialFuncionario;
+
     ?>
     <div class="container">
         @if(Session::has('mensagem'))
@@ -37,6 +36,10 @@
             </div>
             <br/>
             <div class="row">
+                <div class="col-md-2">
+                    {!! Form::label('valor', "Valor Disponível (R$)") !!}
+                    {!! Form::input('number','valor_disponivel',$folha->salario_bruto_novo, ['class'=>'form-control', 'disabled']) !!}
+                </div>
                 <div class="col-md-2">
                     {!! Form::label('valor', "Valor Solicitado (R$)") !!}
                     {!! Form::input('number','valor',null, ['class'=>'form-control','id'=>'valor','required']) !!}

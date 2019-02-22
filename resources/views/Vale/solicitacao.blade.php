@@ -39,6 +39,9 @@
                                     $sujeito = $sol->funcionario->nome;
                                 }
                                 $data = $sol->created_at;
+//                                $unix = strtotime($sol->created_at);
+//                                $data = new DateTime("@$unix");
+
                                 $valor = $sol->valor_solicitado;
                                 $status = $sol->statusVale->descricao;
                             ?>
@@ -103,7 +106,8 @@
             $('#tableSolicitacoes').DataTable({
                 "language": {
                     "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Portuguese-Brasil.json"
-                }
+                },
+                "order": [[1, "desc"]]
             });
         } );
     </script>

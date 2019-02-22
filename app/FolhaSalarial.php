@@ -11,8 +11,4 @@ class FolhaSalarial extends Model
     public function funcionario(){
         return $this->belongsTo('App\Funcionario');
     }
-
-    public function newMes(Empresa $empresa){
-        
-    }
 }
