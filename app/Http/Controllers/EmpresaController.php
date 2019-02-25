@@ -76,7 +76,7 @@ class EmpresaController extends Controller
         }
         \DB::commit();
         if($request->editar){
-            \Session::flash('mensagem', 'Sucesso');
+            \Session::flash('mensagemSucesso', 'Sucesso');
             return \Redirect::to(\url('/empresa/editar'));
         }else{
             return \Redirect::to('/empresa/home');

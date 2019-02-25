@@ -37,7 +37,8 @@
         <div class="row">
             <div class="col-md-6">
                 {!! Form::label('banco','Banco *') !!}
-                {!! Form::input('text', 'banco', null, ['class'=>'form-control','required', 'placeholder'=>'Banco']) !!}
+                {{--{!! Form::input('text', 'banco', null, ['class'=>'form-control','required', 'placeholder'=>'Banco']) !!}--}}
+                {!! Form::select('banco', ['Banco do Brasil' => 'Banco do Brasil', 'Bradesco' => 'Bradesco', 'Caixa Econômica' => 'Caixa Econômica', 'Itaú' => 'Itaú', 'Santander' => 'Santander', 'HSBC' => 'HSBC'], null, ['class'=>'form-control','required','placeholder'  => 'Informe o Banco...']) !!}
             </div>
             <div class="col-md-2">
                 {!! Form::label('agencia','Agência *') !!}
@@ -66,4 +67,17 @@
         </div>
         {!! Form::close() !!}
     </div>
+@endsection
+@section('script')
+    <script src="{{ asset('js/libraries/jquery.js') }}"></script>
+    <script src="{{ asset('js/libraries/jquery.inputmask.bundle.js') }}" defer></script>
+    <script>
+        $(document).ready(function(){
+            $("#cnpj").inputmask("99.999.999/9999-99");
+            $("#agencia").inputmask("9{1,6}-9");
+            $("#numero").inputmask("9{1,10}");
+            $("#variacao").inputmask("9{1,3}");
+            $("#telefones").inputmask("((99)9{4,5}-9999,){1,4}")
+        });
+    </script>
 @endsection
