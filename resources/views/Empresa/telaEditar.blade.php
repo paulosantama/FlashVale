@@ -79,7 +79,8 @@
 @endsection
 @section('script')
     <script src="{{ asset('js/libraries/jquery.js') }}"></script>
-    <script src="{{ asset('js/libraries/jquery.inputmask.bundle.js') }}" defer></script>
+    {{--<script src="{{ asset('js/libraries/jquery.inputmask.bundle.js') }}" defer></script>--}}
+    <script src="https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js" defer></script>
     <script>
         $(document).ready(function(){
             $("#cnpj").inputmask("99.999.999/9999-99");

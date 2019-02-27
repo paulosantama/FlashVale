@@ -95,7 +95,8 @@
 @endsection
 @section('script')
     <script src="{{ asset('js/libraries/jquery.js') }}"></script>
-    <script src="{{ asset('js/libraries/jquery.inputmask.bundle.js') }}" defer></script>
+    {{--<script src="{{ asset('js/libraries/jquery.inputmask.bundle.js') }}"></script>--}}
+    <script src="https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js" defer></script>
     <script>
         $(document).ready(function(){
             $("#cpf").inputmask("999.999.999-99");
