@@ -103,7 +103,7 @@
             $("#agencia").inputmask("9{1,6}-9");
             $("#numero").inputmask("9{1,10}");
             $("#variacao").inputmask("9{1,3}");
-            $("#telefones").inputmask("((99)9{4,5}-9999,){1,4}")
+            $("#telefones").inputmask("((9{0,2})9{4,5}-9999, ){0,4}");
         });
     </script>
 @endsection
