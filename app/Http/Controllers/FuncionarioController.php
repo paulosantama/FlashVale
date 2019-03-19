@@ -40,7 +40,7 @@ class FuncionarioController extends Controller
             $listTelefones = explode(',', $request->telefones);
             $telefones = array();
             foreach ($listTelefones as $key => $telefone) {
-                array_push($telefones, array('numero' => $telefone, 'descricao' => 'Telefone ' . ($key + 1)));
+                array_push($telefones, array('numero' => trim($telefone), 'descricao' => 'Telefone ' . ($key + 1)));
             }
             $funcionario->telefonesFuncionario()->delete();
             $funcionario->telefonesFuncionario()->createMany($telefones);
