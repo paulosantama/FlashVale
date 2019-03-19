@@ -40,7 +40,10 @@ Route::get('/empresa/funcionarios/solicitacoes', 'EmpresaController@solicitacoes
 Route::get('/empresa/funcionarios/{sol}','EmpresaController@getFuncionario');
 Route::get('/empresa/funcionarios/{sol}/aprovar','SolicitacaoCadastroController@cadastroAprovar');
 Route::get('/empresa/funcionarios/{sol}/reprovar','SolicitacaoCadastroController@cadastroReprovar');
+Route::get('/empresa/funcionarios/','EmpresaController@listagemFuncionarios');
+Route::get('/empresa/funcionarios/perfil/{id}','EmpresaController@getFuncionarioPerfil');
 Route::get('/empresa/retornarEmpresa','EmpresaController@retornaEmpresa');
+Route::get('/empresa/funcionarios/desativar/{id}','EmpresaController@desativarFuncionario');
 
 // Solicitacao de Vale
 Route::get('vale/solicitacoes', 'SolicitacaoValeController@telaSolicitacoes');

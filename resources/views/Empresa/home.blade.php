@@ -89,6 +89,21 @@
                         </div>
                     </a>
                 </div>
+                <div class="col-md-2 col-6 mt-2" style="height: 150px;">
+                    <a href="{{ url('/empresa/funcionarios/') }}" class="ocultLink">
+                        <div class="itemPrincipal text-center">
+                            <table height="100%" width="100%">
+                                <tr>
+                                    <td class="align-middle">
+                                        <h5>
+                                            Funcionários
+                                        </h5>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </a>
+                </div>
             </div>
         @endif
     </div>

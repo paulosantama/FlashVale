@@ -26,4 +26,7 @@ class Funcionario extends Model
     public function empresa(){
         return $this->belongsTo('App\Empresa');
     }
+    public function user(){
+        return $this->hasOne('App\User');
+    }
 }

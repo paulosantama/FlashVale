@@ -114,4 +114,50 @@ class EmpresaController extends Controller
         }
         return json_encode($valor);
     }
+    public function listagemFuncionarios(){
+        try{
+            if(!\Auth::check() || \Auth::user()->empresa_id == null){
+                return \Redirect::to('login');
+            }
+
+            $empresa = Empresa::findOrFail(\Auth::user()->empresa_id);
+            $funcionarios = $empresa->funcionariosEmpresa->where('ativo',1);
+
+            return view('Empresa.funcionarios',['funcionarios'=>$funcionarios]);
+
+        }catch (\Exception $error){
+            \Session::flash('mensagem','ERRO');
+            return \Redirect::to('home');
+        }
+    }
+    public function getFuncionarioPerfil($id){
+        try{
+            if(!\Auth::check() || \Auth::user()->empresa_id == null){
+                return \Redirect::to('login');
+            }
+            $funcionario = Funcionario::findOrFail($id);
+
+            return view('Empresa.visualizarPerfilFuncionario', ['funcionario'=>$funcionario]);
+
+        }catch (\Exception $error){
+            \Session::flash('mensagem','ERRO');
+            return \Redirect::to('home');
+        }
+    }
+    public function desativarFuncionario($id){
+        try{
+            if(!\Auth::check() || \Auth::user()->empresa_id == null){
+                return \Redirect::to('login');
+            }
+            $funcionario = Funcionario::findOrFail($id);
+
+            $funcionario->ativo = false;
+            $funcionario->save();
+
+            return \Redirect::to(url('/empresa/funcionarios/'));
+        }catch (\Exception $error){
+            \Session::flash('mensagem','ERRO');
+            return \Redirect::to('home');
+        }
+    }
 }
