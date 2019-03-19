@@ -46,7 +46,7 @@
             <div class="col-md-6">
                 {!! Form::label('banco','Banco *') !!}
                 {{--{!! Form::input('text', 'banco', $empresa->contasBancariasEmpresa->banco, ['class'=>'form-control','required', 'placeholder'=>'Banco']) !!}--}}
-                {!! Form::select('banco', ['Banco do Brasil' => 'Banco do Brasil', 'Bradesco' => 'Bradesco', 'Caixa Econômica' => 'Caixa Econômica', 'Itaú' => 'Itaú', 'Santander' => 'Santander', 'HSBC' => 'HSBC'], $empresa->contasBancariasEmpresa->banco, ['class'=>'form-control','required','placeholder'  => 'Informe o Banco...']) !!}
+                {!! Form::select('banco', ['Banco do Brasil' => 'Banco do Brasil', 'Bradesco' => 'Bradesco', 'Caixa Econômica' => 'Caixa Econômica', 'Itaú' => 'Itaú', 'Santander' => 'Santander', 'HSBC' => 'HSBC', 'Sicoob' => 'Sicoob'], $empresa->contasBancariasEmpresa->banco, ['class'=>'form-control','required','placeholder'  => 'Informe o Banco...']) !!}
             </div>
             <div class="col-md-2">
                 {!! Form::label('agencia','Agência *') !!}

@@ -38,7 +38,7 @@
             <div class="col-md-6">
                 {!! Form::label('banco','Banco *') !!}
                 {{--{!! Form::input('text', 'banco', null, ['class'=>'form-control','required', 'placeholder'=>'Banco']) !!}--}}
-                {!! Form::select('banco', ['Banco do Brasil' => 'Banco do Brasil', 'Bradesco' => 'Bradesco', 'Caixa Econômica' => 'Caixa Econômica', 'Itaú' => 'Itaú', 'Santander' => 'Santander', 'HSBC' => 'HSBC'], null, ['class'=>'form-control','required','placeholder'  => 'Informe o Banco...']) !!}
+                {!! Form::select('banco', ['Banco do Brasil' => 'Banco do Brasil', 'Bradesco' => 'Bradesco', 'Caixa Econômica' => 'Caixa Econômica', 'Itaú' => 'Itaú', 'Santander' => 'Santander', 'HSBC' => 'HSBC', 'Sicoob' => 'Sicoob'], null, ['class'=>'form-control','required','placeholder'  => 'Informe o Banco...']) !!}
             </div>
             <div class="col-md-2">
                 {!! Form::label('agencia','Agência *') !!}
@@ -96,6 +96,7 @@
             $("#numero").inputmask("9{1,10}");
             $("#variacao").inputmask("9{1,3}");
             $("#telefones").inputmask("((9{0,2})9{4,5}-9999, ){0,4}");
+            $("#cnpj_empresa").inputmask("99.999.999/9999-99");
         });
     </script>
     <script>

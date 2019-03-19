@@ -22,7 +22,10 @@
             }
 
             body{
-                background-image: linear-gradient(to bottom, mediumseagreen , white);
+                /*background-image: linear-gradient(to bottom, mediumseagreen , white);*/
+                background-image: linear-gradient(to bottom, mediumseagreen , black);
+                /*background-image: linear-gradient(to bottom, DeepPink , black);*/
+                /*background-image: linear-gradient(to bottom, #e6bc53 , black);*/
                 background-repeat: no-repeat;
                 background-size: cover;
             }
@@ -52,9 +55,9 @@
                 color: white;
             }
 
-            .title {
-                font-size: 84px;
-            }
+            /*.title {*/
+                /*font-size: 84px;*/
+            /*}*/
 
             .links > a {
                 /*color: #636b6f;*/
@@ -67,9 +70,9 @@
                 text-transform: uppercase;
             }
 
-            .m-b-md {
-                margin-bottom: 30px;
-            }
+            /*.m-b-md {*/
+                /*margin-bottom: 30px;*/
+            /*}*/
             .logo{
             	width:600px;
             	/*height:600px;*/
