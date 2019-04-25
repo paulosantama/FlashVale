@@ -38,7 +38,7 @@
             <div class="row">
                 <div class="col-md-2">
                     {!! Form::label('valor', "Valor Disponível (R$)") !!}
-                    {!! Form::input('number','valor_disponivel',$folha->salario_bruto_novo, ['class'=>'form-control', 'disabled']) !!}
+                    {!! Form::input('number','valor_disponivel',$disponivel, ['class'=>'form-control', 'disabled']) !!}
                 </div>
                 <div class="col-md-2">
                     {!! Form::label('valor', "Valor Solicitado (R$)") !!}

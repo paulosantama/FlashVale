@@ -27,13 +27,15 @@ class HomeController extends Controller
     }
     public function verificaTipo(){
         if(((\Auth::user()->empresa_id==null)&&(\Auth::user()->funcionario_id==null))){
-            return view('Universal.verificaTipo');
+            if (\Auth::user()->type == 2){
+                return \Redirect::to('admin/home');
+            }else{
+                return view('Universal.verificaTipo');
+            }
         }else{
             if (\Auth::user()->type == 1){
-//                return view('Empresa.home');
                 return \Redirect::to('/empresa/home');
-            }else{
-//                return view('Funcionario.home');
+            }else if (\Auth::user()->type == 0){
                 return \Redirect::to('/funcionario/home');
             }
         }

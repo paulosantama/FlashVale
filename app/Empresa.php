@@ -23,4 +23,16 @@ class Empresa extends Model
     public function solicitacoesCadastro(){
         return $this->hasMany('App\SolicitacaoCadastro');
     }
+    public function user(){
+        return $this->hasOne('App\User');
+    }
+
+    public function aprovarCadastro(){
+        $this->ativo = true;
+        $this->save();
+    }
+    public function reprovarCadastro(){
+        $this->ativo = false;
+        $this->save();
+    }
 }

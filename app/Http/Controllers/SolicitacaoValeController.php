@@ -11,6 +11,9 @@ use Illuminate\Http\Request;
 class SolicitacaoValeController extends Controller
 {
     public function telaSolicitacoes(){
+        if(!\Auth::check()){
+            return \Redirect::to('login');
+        }
         $tipo = \Auth::user()->type;
         if ($tipo==0){
             $funcionario = Funcionario::find(\Auth::user()->funcionario_id);
@@ -40,6 +43,25 @@ class SolicitacaoValeController extends Controller
                 \Session::flash('mensagem','Folha Salarial desatualizada, entrar em contato com a empresa.');
                 return \Redirect::to("/vale/solicitar")->withInput();
             }
+
+            $solsMensais = $func->solicitacoesValeFuncionario->where('created_at','>=', $mesAtual);
+            $sumValSolsMensais = 0;
+            foreach ($solsMensais as $sol){
+                $sumValSolsMensais+= $sol->valor_solicitado;
+            }
+
+            $disponivel = 400 - $sumValSolsMensais;
+
+            if ($disponivel<=0){
+                \Session::flash('mensagem','O limite de solicitações foi esgotado para o mês atual.');
+                return \Redirect::to("/vale/solicitar")->withInput();
+            }
+
+            if ($request->valor > $disponivel){
+                \Session::flash('mensagem','O valor solicitador excede o disponível para o mês.');
+                return \Redirect::to("/vale/solicitar")->withInput();
+            }
+
             if ($request->valor > $folha->salario_bruto_novo){
                 \Session::flash('mensagem','O valor solicitador excede o disponível em folha.');
                 return \Redirect::to("/vale/solicitar")->withInput();
@@ -63,7 +85,15 @@ class SolicitacaoValeController extends Controller
         $funcionario = \App\Funcionario::findOrFail(\Auth::user()->funcionario_id);
         $folha = $funcionario->folhaSalarialFuncionario()->orderBy('created_at','DESC')->first();
 
-        return view('Vale.telaSolicitar',['folha'=>$folha, 'funcionario'=>$funcionario]);
+        $mesAtual = now()->startOfMonth();
+        $solsMensais = $funcionario->solicitacoesValeFuncionario->where('created_at','>=', $mesAtual);
+        $sumValSolsMensais = 0;
+        foreach ($solsMensais as $sol){
+            $sumValSolsMensais+= $sol->valor_solicitado;
+        }
+        $disponivel = 400 - $sumValSolsMensais;
+
+        return view('Vale.telaSolicitar',['folha'=>$folha, 'funcionario'=>$funcionario, 'disponivel'=>$disponivel]);
     }
     public function aprovar($val){
         if (\Auth::user()->type==1){

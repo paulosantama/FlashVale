@@ -44,6 +44,9 @@ Route::get('/empresa/funcionarios/','EmpresaController@listagemFuncionarios');
 Route::get('/empresa/funcionarios/perfil/{id}','EmpresaController@getFuncionarioPerfil');
 Route::get('/empresa/retornarEmpresa','EmpresaController@retornaEmpresa');
 Route::get('/empresa/funcionarios/desativar/{id}','EmpresaController@desativarFuncionario');
+Route::get('/empresa/relatorios/','EmpresaController@telaHomeRelatorios');
+Route::get('/empresa/relatorios/valesPorFuncionario','EmpresaController@telaValesPorFuncionario');
+
 
 // Solicitacao de Vale
 Route::get('vale/solicitacoes', 'SolicitacaoValeController@telaSolicitacoes');
@@ -59,3 +62,11 @@ Route::post('folha/salvar', 'FolhaSalarialController@salvar');
 Route::get('folha/{func}/editar', 'FolhaSalarialController@editar');
 Route::get('folha/{func}/visualizar', 'FolhaSalarialController@visualizar');
 Route::get('folha/renovar', 'FolhaSalarialController@renovarFolha');
+
+// Admin
+//Route::get('nimda', 'AdminController@loginAdmin');
+Route::get('admin/home', 'AdminController@menuAdmin');
+Route::get('admin/solicitacoesEmpresa','AdminController@telasolicitacoesEmpresa');
+Route::get('admin/solicitacoesEmpresa/{empresa}','AdminController@getEmpresa');
+Route::get('admin/empresa/{empresa}/aprovar','AdminController@aprovarEmpresa');
+Route::get('admin/empresa/{empresa}/reprovar','AdminController@reprovarEmpresa');

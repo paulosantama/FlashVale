@@ -11,6 +11,15 @@ use Illuminate\Http\Request;
 
 class EmpresaController extends Controller
 {
+    private function isEmpresa(){
+        if(\Auth::check() && \Auth::user()->type == 1 && \Auth::user()->empresa_id != null){
+            $empresa = Empresa::findOrFail(\Auth::user()->empresa_id);
+            if ($empresa->ativo == '1')return true;
+            else return false;
+        }else{
+            return false;
+        }
+    }
     public function telaCadastrar(){
         return view('Empresa.telaCadastrar');
     }
@@ -18,8 +27,9 @@ class EmpresaController extends Controller
         return view('Empresa.home');
     }
     public function getFuncionario($sol){
+        if (!$this->isEmpresa()) return \Redirect::to('login');
+
         $solicitacao = SolicitacaoCadastro::findOrfail($sol);
-//        $funcionario = Funcionario::findOrFail($id);
 
         return view('Empresa.visualizarFuncionario', ['funcionario'=>$solicitacao->funcionario,'sol'=>$sol]);
     }
@@ -92,9 +102,7 @@ class EmpresaController extends Controller
         }
     }
     public function solicitacoesCadastro(){
-        if(!\Auth::check() || \Auth::user()->empresa_id == null){
-            return \Redirect::to('login');
-        }
+        if (!$this->isEmpresa()) return \Redirect::to('login');
 
         $empresa = Empresa::findOrFail(\Auth::user()->empresa_id);
         $solicitacoes = $empresa->solicitacoesCadastro;
@@ -116,9 +124,7 @@ class EmpresaController extends Controller
     }
     public function listagemFuncionarios(){
         try{
-            if(!\Auth::check() || \Auth::user()->empresa_id == null){
-                return \Redirect::to('login');
-            }
+            if (!$this->isEmpresa()) return \Redirect::to('login');
 
             $empresa = Empresa::findOrFail(\Auth::user()->empresa_id);
             $funcionarios = $empresa->funcionariosEmpresa->where('ativo',1);
@@ -132,13 +138,11 @@ class EmpresaController extends Controller
     }
     public function getFuncionarioPerfil($id){
         try{
-            if(!\Auth::check() || \Auth::user()->empresa_id == null){
-                return \Redirect::to('login');
-            }
+            if (!$this->isEmpresa()) return \Redirect::to('login');
+
             $funcionario = Funcionario::findOrFail($id);
 
             return view('Empresa.visualizarPerfilFuncionario', ['funcionario'=>$funcionario]);
-
         }catch (\Exception $error){
             \Session::flash('mensagem','ERRO');
             return \Redirect::to('home');
@@ -146,9 +150,8 @@ class EmpresaController extends Controller
     }
     public function desativarFuncionario($id){
         try{
-            if(!\Auth::check() || \Auth::user()->empresa_id == null){
-                return \Redirect::to('login');
-            }
+            if (!$this->isEmpresa()) return \Redirect::to('login');
+
             $funcionario = Funcionario::findOrFail($id);
 
             $funcionario->ativo = false;
@@ -159,5 +162,18 @@ class EmpresaController extends Controller
             \Session::flash('mensagem','ERRO');
             return \Redirect::to('home');
         }
+    }
+    public function telaHomeRelatorios(){
+        if (!$this->isEmpresa()) return \Redirect::to('login');
+
+        return view('Relatorio.home');
+    }
+    public function telaValesPorFuncionario(){
+        if (!$this->isEmpresa()) return \Redirect::to('login');
+
+        $empresa = Empresa::findOrFail(\Auth::user()->empresa_id);
+        $funcionarios = $empresa->funcionariosEmpresa()->orderBy('nome','asc')->get();
+
+        return view('Relatorio.valesPorFuncionario', ['funcionarios'=>$funcionarios]);
     }
 }

@@ -13,6 +13,7 @@
         "laravel/framework": "5.7.*",
         "laravel/tinker": "^1.0",
         "laravelcollective/html": "^5.7.0",
+        "rap2hpoutre/create-user-command": "^0.1.4",
         "robinherbots/jquery.inputmask": "4.0.6"
     },
     "require-dev": {

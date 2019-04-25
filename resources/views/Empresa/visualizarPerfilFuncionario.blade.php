@@ -77,8 +77,8 @@
         <br/>
         <div class="row">
             <div class="col-md-12 text-right">
-                <a href="{{ url('/empresa/funcionarios/desativar/'.$funcionario->id) }}" class="btn btn-primary" onclick="return confirm('Tem certeza que deseja desativar este funcionário?')" >Desativar</a>
                 <a href="{{ url('/empresa/funcionarios') }}" class="btn btn-danger">Voltar</a>
+                <a href="{{ url('/empresa/funcionarios/desativar/'.$funcionario->id) }}" class="btn btn-primary" onclick="return confirm('Tem certeza que deseja desativar este funcionário?')" >Desativar</a>
             </div>
         </div>
         {!! Form::close() !!}

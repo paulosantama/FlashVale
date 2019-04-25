@@ -5,7 +5,7 @@
             <div class="alert alert-danger">{{Session::get('mensagem')}}</div>
             {{--{!! Form::model() !!}--}}
         @else
-        {{--{!! Form::open(['url'=>'funcionario/salvar']) !!}--}}
+            {{--{!! Form::open(['url'=>'funcionario/salvar']) !!}--}}
         @endif
         <h3>Funcionário</h3>
         <h5>Dados Pessoais</h5>
@@ -90,7 +90,7 @@
     {{--<script src="{{ asset('js/libraries/jquery.inputmask.bundle.js') }}" defer></script>--}}
     <script src="https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js" defer></script>
     <script>
-        $(document).ready(function(){
+        $(document).ready(function () {
             $("#cpf").inputmask("999.999.999-99");
             $("#agencia").inputmask("9{1,6}-9");
             $("#numero").inputmask("9{1,10}");
@@ -100,24 +100,27 @@
         });
     </script>
     <script>
+        function consultaCnpj() {
+            var nome_empresa = $("input[name='empresa']");
+            var cnpj_empresa = $("input[name='cnpj_empresa']");
+            var btn_salvar = $("input[name='submitFunc']");
+            $.getJSON(
+                '{{ url('/empresa/retornarEmpresa') }}',
+                {cnpj: cnpj_empresa.val()},
+                function (json) {
+                    nome_empresa.val(json.nome_empresa);
+                    if (json.valido == true) {
+                        btn_salvar.removeAttr('disabled');
+                        btn_salvar.removeAttr('title');
+                    } else {
+                        btn_salvar.attr('disabled', 'disabled');
+                        btn_salvar.attr('title', 'Preencha adequadamente o campo CNPJ');
+                    }
+                })
+        }
         $(document).ready(function () {
-            $("input[name='cnpj_empresa']").blur(function () {
-                var nome_empresa = $("input[name='empresa']");
-                var btn_salvar = $("input[name='submitFunc']");
-                $.getJSON(
-                    '{{ url('/empresa/retornarEmpresa') }}',
-                    {cnpj: $(this).val()},
-                    function (json) {
-                        nome_empresa.val(json.nome_empresa);
-                        if(json.valido == true){
-                            btn_salvar.removeAttr('disabled');
-                            btn_salvar.removeAttr('title');
-                        }else{
-                            btn_salvar.attr('disabled','disabled');
-                            btn_salvar.attr('title','Preencha adequadamente o campo CNPJ');
-                        }
-                    })
-            })
+            $("input[name='cnpj_empresa']").blur(consultaCnpj);
         });
+        window.onload = consultaCnpj;
     </script>
 @endsection

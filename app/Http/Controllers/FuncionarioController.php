@@ -80,9 +80,9 @@ class FuncionarioController extends Controller
             \Session::flash('mensagem', 'Erro no Cadastro');
 
             if($request->editar){
-                return \Redirect::to(\url('/funcionario/editar'));
+                return \Redirect::to(\url('/funcionario/editar'))->withInput();
             }else{
-                return \Redirect::to(\url('/funcionario/cadastro'));
+                return \Redirect::to(\url('/funcionario/cadastro'))->withInput();
             }
         }
         \DB::commit();
