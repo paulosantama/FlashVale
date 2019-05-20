@@ -6,12 +6,13 @@ use App\ContaBancariaEmpresa;
 use App\Empresa;
 use App\Funcionario;
 use App\SolicitacaoCadastro;
+use App\StatusVale;
 use App\User;
 use Illuminate\Http\Request;
 
 class EmpresaController extends Controller
 {
-    private function isEmpresa(){
+    public static function isEmpresa(){
         if(\Auth::check() && \Auth::user()->type == 1 && \Auth::user()->empresa_id != null){
             $empresa = Empresa::findOrFail(\Auth::user()->empresa_id);
             if ($empresa->ativo == '1')return true;
@@ -173,7 +174,23 @@ class EmpresaController extends Controller
 
         $empresa = Empresa::findOrFail(\Auth::user()->empresa_id);
         $funcionarios = $empresa->funcionariosEmpresa()->orderBy('nome','asc')->get();
+        $status = StatusVale::all();
 
-        return view('Relatorio.valesPorFuncionario', ['funcionarios'=>$funcionarios]);
+        $funcsPluck = $funcionarios->pluck('nome','id');
+        $statusPluck = $status->pluck('descricao','id');
+
+        $statusPluck->push("Todos");
+
+        return view('Relatorio.valesPorFuncionario', ['funcionarios'=>$funcsPluck,'status'=>$statusPluck]);
+    }
+    public function telaValesPorPeriodo(){
+        if (!$this->isEmpresa()) return \Redirect::to('login');
+
+        return view('Relatorio.valesPorPeriodo');
+    }
+    public function telaValesVisaoGeral(){
+        if (!$this->isEmpresa()) return \Redirect::to('login');
+
+        return view('Relatorio.valesVisaoGeral');
     }
 }

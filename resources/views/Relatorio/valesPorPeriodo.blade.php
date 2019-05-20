@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
     <div class="container">
-        <h3>Vales por Funcionário</h3>
+        <h3>Vales por Período</h3>
         <br/>
         @if(Session::has('mensagem'))
             <div class="alert alert-danger">{{Session::get('mensagem')}}</div>
@@ -12,16 +12,6 @@
         <br/>
         <div class="row">
             <div class="col-md-6 col-12">
-                <div class="row">
-                    <div class="col-md-12">
-                        <label for="funcionario">Nome do Funcionário:</label>
-                        <select name="funcionario" id="funcionario" class="form-control">
-                            @foreach($funcionarios as $func)
-                                <option value="{{ $func->id }}">{{ $func->nome }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
                 <div class="row">
                     <div class="col-md-6">
                         <label for="dataInicial">Data Inicial</label>

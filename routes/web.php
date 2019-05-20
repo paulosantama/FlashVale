@@ -46,7 +46,11 @@ Route::get('/empresa/retornarEmpresa','EmpresaController@retornaEmpresa');
 Route::get('/empresa/funcionarios/desativar/{id}','EmpresaController@desativarFuncionario');
 Route::get('/empresa/relatorios/','EmpresaController@telaHomeRelatorios');
 Route::get('/empresa/relatorios/valesPorFuncionario','EmpresaController@telaValesPorFuncionario');
+Route::get('/empresa/relatorios/valesPorPeriodo','EmpresaController@telaValesPorPeriodo');
+Route::get('/empresa/relatorios/valesVisaoGeral','EmpresaController@telaValesVisaoGeral');
 
+// Relatorios
+Route::post('/empresa/relatorios/ValesPorFuncionario/pdf', 'RelatorioController@GenerateValesPorFuncionarioPdf');
 
 // Solicitacao de Vale
 Route::get('vale/solicitacoes', 'SolicitacaoValeController@telaSolicitacoes');

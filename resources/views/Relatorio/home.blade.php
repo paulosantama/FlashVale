@@ -42,7 +42,7 @@
                 </a>
             </div>
             <div class="col-md-2 col-6 mt-2" style="height: 150px;">
-                <a href="" class="ocultLink">
+                <a href="{{ url('/empresa/relatorios/valesPorPeriodo') }}" class="ocultLink">
                     <div class="itemPrincipal navVerde text-center">
                         <table height="100%" width="100%">
                             <tr>
@@ -57,7 +57,7 @@
                 </a>
             </div>
             <div class="col-md-2 col-6 mt-2" style="height: 150px;">
-                <a href="" class="ocultLink">
+                <a href="{{ url('/empresa/relatorios/valesVisaoGeral') }}" class="ocultLink">
                     <div class="itemPrincipal navVerde text-center">
                         <table height="100%" width="100%">
                             <tr>
