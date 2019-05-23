@@ -86,7 +86,7 @@ class SolicitacaoValeController extends Controller
         $folha = $funcionario->folhaSalarialFuncionario()->orderBy('created_at','DESC')->first();
 
         $mesAtual = now()->startOfMonth();
-        $solsMensais = $funcionario->solicitacoesValeFuncionario->where('created_at','>=', $mesAtual);
+        $solsMensais = $funcionario->solicitacoesValeFuncionario->where('created_at','>=', $mesAtual)->where('status_vale_id','<>','3');
         $sumValSolsMensais = 0;
         foreach ($solsMensais as $sol){
             $sumValSolsMensais+= $sol->valor_solicitado;
