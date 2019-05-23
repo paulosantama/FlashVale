@@ -16,7 +16,7 @@
         <div class="row">
             <div class="col-md-3">
                 {!! Form::label('salario_bruto_original','Salário Bruto(R$)') !!}
-                {!! Form::input('text','salario_bruto_original',null,['class'=>'form-control']) !!}
+                {!! Form::input('text','salario_bruto_original',null,['class'=>'form-control','required']) !!}
             </div>
         </div>
         <br/>
