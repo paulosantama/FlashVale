@@ -99,8 +99,8 @@ class FolhaSalarialController extends Controller
 
             \Session::flash('mensagemSucesso','Folha salarial cadastrada com sucesso.');
         }catch (\Exception $error){
-//            \Session::flash('mensagem','Erro no cadastro da folha salarial.');
-            \Session::flash('mensagem',$error->getMessage());
+            \Session::flash('mensagem','Erro no cadastro da folha salarial.');
+//            \Session::flash('mensagem',$error->getMessage());
 //            echo $error->getMessage();
         }
         return \Redirect::to('folha/');

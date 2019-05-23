@@ -18,7 +18,7 @@
             ?>
             <div class="col-md-3">
                 {!! Form::label('salario_bruto_original','Salário Original(R$)') !!}
-                {!! Form::input('text','salario_bruto_original',$folha->salario_bruto_original,['class'=>'form-control', 'id'=>'field_bruto','onkeydown'=>'changeBruto(event)']) !!}
+                {!! Form::input('text','salario_bruto_original',$folha->salario_bruto_original,['class'=>'form-control', 'id'=>'field_bruto','onkeydown'=>'changeBruto(event)','required']) !!}
             </div>
             <div class="col-md-3">
                 {!! Form::label('salario_bruto_novo','Salário Atual(R$)') !!}

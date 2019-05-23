@@ -45,8 +45,8 @@ class RelatorioController extends Controller
             return \PDF::loadView('Relatorio.pdfValesPorFuncionario', compact("func", "empresa", "solicitacoes", "startDate", "endDate"))->download($func->nome . " (" . $maskStartDate . " até " . $maskEndDate . ")" . ".pdf");
 //            return view('Relatorio.pdfValesPorFuncionario',['func'=>$func,'empresa'=>$empresa,'solicitacoes'=>$solicitacoes,'startDate'=>$startDate, 'endDate'=>$endDate]);
         } catch (\Exception $error) {
-//            \Session::flash('mensagem','ERRO');
-            \Session::flash('mensagem', $error->getMessage());
+            \Session::flash('mensagem','ERRO na geração do relatório.');
+//            \Session::flash('mensagem', $error->getMessage());
             return \Redirect::to('/empresa/relatorios/valesPorFuncionario')->withInput();
         }
     }
@@ -83,8 +83,8 @@ class RelatorioController extends Controller
             return \PDF::loadView('Relatorio.pdfValesPorPeriodo', compact("empresa", "solicitacoes", "startDate", "endDate"))->download($empresa->nome . " (" . $maskStartDate . " até " . $maskEndDate . ")" . ".pdf");
 //            return view('Relatorio.pdfValesPorPeriodo',['empresa'=>$empresa,'solicitacoes'=>$solicitacoes,'startDate'=>$startDate, 'endDate'=>$endDate]);
         } catch (\Exception $error) {
-//            \Session::flash('mensagem','ERRO');
-            \Session::flash('mensagem', $error->getMessage());
+            \Session::flash('mensagem','ERRO na geração do relatório.');
+//            \Session::flash('mensagem', $error->getMessage());
             return \Redirect::to('/empresa/relatorios/valesPorPeriodo')->withInput();
         }
     }
@@ -141,8 +141,8 @@ class RelatorioController extends Controller
                 'StatFuncvales'=>$funcVales]);
 
         } catch (\Exception $error) {
-//            \Session::flash('mensagem','ERRO');
-            \Session::flash('mensagem', $error->getMessage());
+            \Session::flash('mensagem','ERRO na geração do relatório.');
+//            \Session::flash('mensagem', $error->getMessage());
             return \Redirect::to('/empresa/relatorios/valesVisaoGeral')->withInput();
         }
     }
