@@ -14,11 +14,11 @@
         <br/>
         <div class="row">
             <?php
-                $folha = $funcionario->folhaSalarialFuncionario->first();
+                $folha = $funcionario->folhaSalarialFuncionario()->orderBy('created_at','desc')->first();
             ?>
             <div class="col-md-3">
                 {!! Form::label('salario_bruto_original','Salário Original(R$)') !!}
-                {!! Form::input('text','salario_bruto_original',$folha->salario_bruto_original,['class'=>'form-control', 'id'=>'field_bruto','onchange'=>'changeBruto()']) !!}
+                {!! Form::input('text','salario_bruto_original',$folha->salario_bruto_original,['class'=>'form-control', 'id'=>'field_bruto','onkeydown'=>'changeBruto(event)']) !!}
             </div>
             <div class="col-md-3">
                 {!! Form::label('salario_bruto_novo','Salário Atual(R$)') !!}
@@ -37,11 +37,26 @@
 @section('script')
     <script>
         var valor_original = document.getElementById('field_bruto').value;
+        valor_original = valor_original.replace(",",".");
         var novo_original = document.getElementById('field_novo').value;
         var diferenca = (parseFloat(valor_original)-parseFloat(novo_original));
 
-        function changeBruto() {
+        function changeBruto(tecla) {
             var valor = document.getElementById('field_bruto').value;
+
+            // backspace
+            if (tecla.keyCode == 8){
+                valor = valor.substr(0,(valor.length - 1));
+            }else{
+                if (valor.length==0){
+                    valor = tecla.key.toString();
+                }else{
+                    valor = valor + tecla.key.toString();
+                }
+            }
+            valor = valor.replace(",",".");
+            // console.log(valor);
+            // console.log(tecla);
             var novo = document.getElementById('field_novo');
 
             novo.value = (parseFloat(valor)-diferenca);

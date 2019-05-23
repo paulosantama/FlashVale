@@ -49,24 +49,18 @@
     <p>Data do relatório: {{ \Carbon\Carbon::parse(\Carbon\Carbon::now())->format('d/m/Y H:i:s') }}</p>
     <div class="boxTitulo" style="padding-left: 10px; padding-right: 10px;">
         <br/>
-        <h3 class="titulo">Vales por Funcionário</h3>
+        <h3 class="titulo">Vales por Período</h3>
         <hr style="border-color: black;">
         <table class="table">
             <tr>
-                <td>Nome:</td>
-                <td class="bordaDireita">{{ $func->nome }}</td>
                 <td>Empresa:</td>
                 <td>{{ $empresa->nome }}</td>
             </tr>
             <tr>
-                <td>CPF:</td>
-                <td class="bordaDireita">{{ $func->cpf }}</td>
                 <td>CNPJ:</td>
                 <td>{{ $empresa->cnpj }}</td>
             </tr>
             <tr>
-                <td>Cargo:</td>
-                <td class="bordaDireita">{{ $func->cargo }}</td>
                 <td>Período:</td>
                 <td>{{ \Carbon\Carbon::parse($startDate)->format('d/m/Y') }} até {{ \Carbon\Carbon::parse($endDate)->format('d/m/Y') }}</td>
             </tr>
@@ -103,6 +97,7 @@
     <h4>Solicitações</h4>
     <table class="table table-bordered table-striped">
         <tr>
+            <td>Funcionário</td>
             <td>Data de solicitação</td>
             <td>Data de resposta</td>
             <td>Valor Solicitado</td>
@@ -111,6 +106,7 @@
         <tbody>
         @foreach($solicitacoes as $sol)
             <tr>
+                <td>{{ $sol->funcionario->nome }}</td>
                 <td>{{ \Carbon\Carbon::parse($sol->created_at)->format('d/m/Y H:i:s') }}</td>
                 <td>
                     @if($sol->statusVale->id!=1)

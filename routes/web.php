@@ -51,6 +51,8 @@ Route::get('/empresa/relatorios/valesVisaoGeral','EmpresaController@telaValesVis
 
 // Relatorios
 Route::post('/empresa/relatorios/ValesPorFuncionario/pdf', 'RelatorioController@GenerateValesPorFuncionarioPdf');
+Route::post('/empresa/relatorios/ValesPorPeriodo/pdf', 'RelatorioController@GenerateValesPorPeriodoPdf');
+Route::post('/empresa/relatorios/ValesVisaoGeral/show', 'RelatorioController@GenerateValesVisaoGeralShow');
 
 // Solicitacao de Vale
 Route::get('vale/solicitacoes', 'SolicitacaoValeController@telaSolicitacoes');

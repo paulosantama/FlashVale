@@ -10,26 +10,28 @@
             <div class="alert alert-success">{{Session::get('mensagemSucesso')}}</div>
         @endif
         <br/>
+        {!! Form::open(['url'=>'/empresa/relatorios/ValesVisaoGeral/show']) !!}
         <div class="row">
             <div class="col-md-6 col-12">
                 <div class="row">
                     <div class="col-md-6">
                         <label for="dataInicial">Data Inicial</label>
-                        <input type="date" name="dataInicial" class="form-control">
+                        {!! Form::input('date','dataInicial',null,['class'=>'form-control','required']) !!}
                     </div>
                     <div class="col-md-6">
                         <label for="dataFinal">Data Final</label>
-                        <input type="date" name="dataFinal" class="form-control">
+                        {!! Form::input('date','dataFinal',null,['class'=>'form-control','required']) !!}
                     </div>
                 </div>
                 <br/>
                 <div class="row">
                     <div class="col-md-12" style="text-align: right;">
                         <a href="{{ url('/empresa/relatorios') }}" class="btn btn-danger">Voltar</a>
-                        <button class=" btn btn-primary">Gerar Relatório</button>
+                        <input type="submit" class="btn btn-primary" value="Gerar Relatório" formtarget="_blank"/>
                     </div>
                 </div>
             </div>
         </div>
+        {!! Form::close() !!}
     </div>
 @endsection

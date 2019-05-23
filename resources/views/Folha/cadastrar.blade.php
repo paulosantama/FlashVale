@@ -22,7 +22,7 @@
         <br/>
         <div class="row">
             <div class="col-md-12 text-right">
-                <a href="{{ url('folha/') }}" class="btn btn-danger">Cancelar</a>
+                {{--<a href="{{ url('folha/') }}" class="btn btn-danger">Cancelar</a>--}}
                 {!! Form::submit('Salvar',['class'=>'btn btn-success']) !!}
             </div>
         </div>

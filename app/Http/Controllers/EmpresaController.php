@@ -186,7 +186,13 @@ class EmpresaController extends Controller
     public function telaValesPorPeriodo(){
         if (!$this->isEmpresa()) return \Redirect::to('login');
 
-        return view('Relatorio.valesPorPeriodo');
+        $status = StatusVale::all();
+
+        $statusPluck = $status->pluck('descricao','id');
+
+        $statusPluck->push("Todos");
+
+        return view('Relatorio.valesPorPeriodo', ['status'=>$statusPluck]);
     }
     public function telaValesVisaoGeral(){
         if (!$this->isEmpresa()) return \Redirect::to('login');

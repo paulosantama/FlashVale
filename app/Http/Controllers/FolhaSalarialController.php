@@ -74,22 +74,33 @@ class FolhaSalarialController extends Controller
         if(!\Auth::check()){
             return \Redirect::to('login');
         }
+        $salarioReplace = str_replace(',','.',$request->salario_bruto_original);
         try{
             if($request->editar){
-                $folha = FolhaSalarial::where('funcionario_id',$request->idFunc)->first();
-                $folha->salario_bruto_original = $request->salario_bruto_original;
+//                $folha = FolhaSalarial::where('funcionario_id',$request->idFunc)->first();
+                $funcionario = Funcionario::find($request->idFunc);
+                $folha = $funcionario->folhaSalarialFuncionario()->orderBy('created_at','desc')->first();
+
+                $mesAtual = now()->startOfMonth();
+                if ($folha->created_at->lt($mesAtual)){
+                    \Session::flash('mensagem','Não é possível alterar uma folha salarial fechada.');
+                    return \Redirect::to('folha/');
+                }
+
+                $folha->salario_bruto_original = $salarioReplace;
                 $folha->salario_bruto_novo = $request->salario_bruto_novo;
             }else{
                 $folha = new FolhaSalarial();
                 $folha->funcionario_id = $request->idFunc;
-                $folha->salario_bruto_original = $request->salario_bruto_original;
-                $folha->salario_bruto_novo = $request->salario_bruto_original;
+                $folha->salario_bruto_original = $salarioReplace;
+                $folha->salario_bruto_novo = $salarioReplace;
             }
             $folha->save();
 
             \Session::flash('mensagemSucesso','Folha salarial cadastrada com sucesso.');
         }catch (\Exception $error){
-            \Session::flash('mensagem','Erro no cadastro da folha salarial.');
+//            \Session::flash('mensagem','Erro no cadastro da folha salarial.');
+            \Session::flash('mensagem',$error->getMessage());
 //            echo $error->getMessage();
         }
         return \Redirect::to('folha/');
